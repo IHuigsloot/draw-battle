@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Draw Battle</title>
+      <meta charset="utf-8">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="style.css" />
+      <script src="socket.io/socket.io.js"></script>
+      <script type="text/javascript" src="main.js"></script>
+      <script type="text/javascript">
+        var socket = io.connect();
+        function select(option) {          
+          socket.emit('select', {select: option, id: socket.id})      
+        }
+      </script>
+   </head>
+   <body>
+      <canvas id="drawing"></canvas>
+
+      <div class="header">
+        <div class="top-bar">
+          <div class="back">
+            <a href="index.html"><i class="fa fa-angle-left" style="font-size:36px"></i></a>
+          </div>
+          <div class="title">
+            <h1>Draw battle</h1>
+          </div>
+          <div class="players">
+            <a href="#"><i class="fa fa-users" style="font-size:36px"></i></a>
+          </div>
+        </div>
+        
+        <div class="center">
+          <div class="center-content">
+            <div class="info" id="info">
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbox" id="toolbox" style="display: none">
+          <div class="color-box toolbox-item">
+            <div class="colors">
+              <div class="color black"></div>
+              <div class="color red"></div>
+              <div class="color green"></div>
+              <div class="color blue"></div>
+              <div class="color yellow"></div>
+            </div>
+            <h3>colors</h3>
+          </div>
+          <div class="clear-box toolbox-item">
+            <div class="clear" id="clear"></div>
+            <h3>Clear</h3>
+          </div>
+        </div>
+
+        <div class="center">
+          <div class="center-content">
+              <div id="alerts" class="alerts"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="center select" id="select" style="display: none">
+        <div class="center-content">
+          <div class="select-box">
+            <div class="options" id="options">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="center answer" id="answer" style="display: none">
+        <div class="center-content">
+          <form id="answer-form">
+            <input class="answer-input" id="answer-input" name="answer" type="text" placeholder="answer" autocomplete="false">
+          </form>  
+        </div>
+      </div>
+
+
+      <!-- Templates -->
+      <script id="alert-template" type="text/html">
+        <div id="alert" class="alert">
+            <p class="alert__text">
+              {{alert}}
+            </p>
+        </div>
+      </script>
+
+      <script id="info-template" type="text/html">
+            <p>
+              {{info}}
+            </p>
+      </script>
+
+      <script id="option-template" type="text/html">
+        <div class="option" onclick="select('{{easy}}')">
+          <div class="stars" name={{easy}}>
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+          </div>
+          <h1>{{easy}}</h1>
+        </div>
+        <div class="option" onclick="select('{{medium}}')">
+          <div class="stars" name="{{medium}}">
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+          </div>
+          <h1>{{medium}}</h1>
+        </div>
+        <div class="option" onclick="select('{{hard}}')">
+          <div class="stars" name="{{hard}}">
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+          </div>
+          <h1>{{hard}}</h1>
+        </div>
+      </script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+   </body>
+</html>

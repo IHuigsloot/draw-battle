@@ -1,0 +1,19 @@
+{
+    "easy": [
+        "cheese",
+        "bike",
+        "apple",
+        "beer"
+    ],
+    "medium": [
+        "boat",
+        "castle",
+        "plane"
+    ],
+    "hard": [
+        "goat",
+        "chicken",
+        "friendship",
+        "minecraft"
+    ]
+}

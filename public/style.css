@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#drawing {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+.toolbox {
+  background-color: #eee;
+  width: fit-content;
+  padding: 1em;
+  border-radius: 25px;
+}
+
+.toolbox-item {
+  display: inline-block;
+}
+
+.clear {
+  pointer-events: auto;
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  background-color: white;
+}
+
+/* .colors {
+  width: 100%;
+  background-color: #eee;
+} */
+
+.color {
+  pointer-events: auto;
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}
+
+.color.black { background-color: black; }
+.color.red { background-color: red; }
+.color.green { background-color: green; }
+.color.blue { background-color: blue; }
+.color.yellow { background-color: gold; }
+
+.answer {
+  bottom: 16px;
+}
+
+.answer-input {
+  width: 300px;
+  padding-left: 10px;
+  font-size: 32px;
+}
+
+.alert {
+      position:absolute;
+    width: 600px;
+    height: 60px;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%,0);
+    color: white;
+    background-color: black;
+    text-align: center
+}
+
+.alert__text {
+  margin-top: 5px;
+  font-size: 32px;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+}
+
+.center-content {
+  position: relative;
+  left: -50%;
+}
+
+.header {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-bar > div {
+  pointer-events: auto;
+  padding: 5px;
+}
+
+.back {
+  margin: 6px;
+  height: 48px;
+  width: 48px;
+  background-color: #9effa6;
+  border-radius: 10px;
+}
+.back a {
+  color: black;
+}
+.back i {
+  margin-left: 10px;
+}
+
+.title {
+  user-select: none;
+  font-size: 28px;
+}
+
+.players {
+  margin: 6px;
+  height: 48px;
+  width: 48px;
+  background-color: #9effa6;
+  border-radius: 10px;
+}
+.players a {
+  color: black;
+}
+
+.select {
+  top: 30%;
+}
+
+.select-box {
+  width: 680px;
+  height: 350px;
+  background-color: #eee;
+}
+
+.option {
+  display: inline-block;
+  margin: 1.4%;
+  background-color: rgba(197, 197, 197, 0.829);
+  width: 30%;
+  height: 330px;
+}
+
+.option:hover {
+  background-color: rgb(143, 143, 143);
+}
+.option h1{
+  text-align: center;
+}
+
+.stars {
+  height: 12em;
+  display: flex;
+  align-items: center;
+  justify-content: center 
+}
+
+.stars i{
+  margin: 0 
+}
