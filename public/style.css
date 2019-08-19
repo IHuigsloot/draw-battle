@@ -61,6 +61,10 @@ html, body {
   bottom: 16px;
 }
 
+.tip {
+  bottom: 72px;
+}
+
 .answer-input {
   width: 300px;
   padding-left: 10px;
@@ -155,7 +159,7 @@ html, body {
   margin: 1.4%;
   background-color: rgba(197, 197, 197, 0.829);
   width: 30%;
-  height: 330px;
+  height: 300px;
 }
 
 .option:hover {
@@ -174,4 +178,14 @@ html, body {
 
 .stars i{
   margin: 0 
+}
+
+.letter {
+  float: left;
+  width: 60px;
+  height: 46px;
+  margin-left: 10px;
+  text-align: center;
+  font-size: 32px;
+  border-bottom: 3px solid black;
 }

@@ -27,12 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const clear = document.querySelector('#clear');
     const toolbox = document.querySelector('#toolbox');
     const select = document.querySelector('#select')
+    const selectTimer = document.querySelector('#select-timer')
     const answerInput = document.querySelector('#answer-input')
+    const tipLetters = document.querySelector('#tip-letters')
 
     // Templates
     const alertTemplate = document.querySelector('#alert-template').innerHTML
     const infoTemplate = document.querySelector('#info-template').innerHTML
     const optionTemplate = document.querySelector('#option-template').innerHTML
+    const selectClockTemplate = document.querySelector('#select-clock-template').innerHTML
+    const tipTemplate = document.querySelector('#tip-template').innerHTML
 
     var current = {
         color: 'black'
@@ -160,6 +164,17 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         $options.innerHTML = html
 
+        var count = 15
+
+        selectTimer.innerHTML = Mustache.render(selectClockTemplate, { time: count })
+        var selectTimerCountdown = setInterval(() => {
+            selectTimer.innerHTML = Mustache.render(selectClockTemplate, { time: count })
+            count--
+            if (count === 0) {
+                clearInterval(selectTimerCountdown)
+            }
+        }, 1000)
+
         socket.emit('clearToolboxes')
     })
 
@@ -174,6 +189,18 @@ document.addEventListener("DOMContentLoaded", function () {
         toolbox.style.display = "block";
     })
 
+    socket.on('kick', () => {
+        location.href = "/"
+    })
+
+    socket.on('tip', (data) => {
+        console.log(data);
+
+        tipLetters.innerHTML = Mustache.render(tipTemplate, {
+            "letters": data
+        })
+        console.log("recieved");
+    })
+
     mainLoop();
 });
-

@@ -13,19 +13,19 @@ const publicDirectoryPath = path.join(__dirname, '../public')
 app.use(express.static(publicDirectoryPath))
 
 var line_history = [];
-var info = "waiting for players"
+var info = "waiting for players..."
 var drawer = ''
 var drawing = ''
+var tips = []
 var game = 'wait'
+var chooseTimer
+var drawTimer
 
 io.on('connection', function (socket) {
     socket.on('join', (username, callback) => {
         const { error, user } = addUser({ id: socket.id, username })
 
         var users = getUsers();
-
-        console.log(game);
-
 
         if (users.length < 2) {
             info = "waiting for players"
@@ -52,7 +52,6 @@ io.on('connection', function (socket) {
         if (!(data.id === drawer.id)) {
             return
         }
-        console.log(data);
         line_history.push(data.line);
         io.emit('draw_line', { line: data.line });
     });
@@ -69,6 +68,8 @@ io.on('connection', function (socket) {
         var user = getUser(data.id)
 
         io.emit('alert', `${user.username} heeft het goed geraden!`)
+        clearTimeout(drawTimer)
+        clearTimeout(tipTimer)
         newRound()
     })
 
@@ -78,14 +79,14 @@ io.on('connection', function (socket) {
     })
 
     socket.on('clearToolboxes', () => {
-        console.log('test');
-
         socket.broadcast.emit('clearToolbox')
     })
 
     socket.on('select', (data) => {
         game = 'started'
         drawing = data.select
+
+        clearTimeout(chooseTimer)
 
         info = (drawer.username + ' is now drawing')
         io.to(drawer.id).emit('draw')
@@ -96,25 +97,32 @@ io.on('connection', function (socket) {
         removeUser(socket.id)
         var users = getUsers()
 
+        console.log(users);
+
+        console.log(users.length);
+
+        if (users.length < 2) {
+            return stopGame()
+        }
+
         if (socket.id === drawer.id) {
             io.emit('alert', 'The drawer left the server')
             return newRound()
         }
-
-        if (users.length < 2) {
-            stopGame()
-        }
-
     })
 
     startGame = () => {
         game = 'starting'
+        clearTimeout(drawTimer)
         newRound()
     }
 
     newRound = () => {
+        console.log("New round started");
+
         io.emit('clear', 2000)
         line_history = []
+        tips = []
 
         var easy = words.easy[Math.floor(Math.random() * words.easy.length)];
         var medium = words.medium[Math.floor(Math.random() * words.medium.length)];
@@ -127,6 +135,31 @@ io.on('connection', function (socket) {
 
         info = (drawer.username + ' is now choosing');
 
+        chooseTimer = setTimeout(() => {
+            io.to(drawer.id).emit('kick')
+            console.log('kick');
+
+        }, 16000)
+
+        tipTimer = setInterval(() => {
+            if (tips.length === 0) {
+                for (let i = 0; i < drawing.length; i++) {
+                    tips.push('')
+                }
+                return io.emit('tip', tips)
+            }
+            var index = Math.floor(Math.random() * drawing.length);
+            var letter = drawing.charAt(index);
+
+            tips.splice(index, 1, letter)
+            console.log(index);
+            io.emit('tip', tips)
+        }, 15000);
+
+        drawTimer = setTimeout(() => {
+            return newRound()
+        }, 76000)
+
         io.emit('info', info)
         io.to(drawer.id).emit('drawer', { easy, medium, hard })
     }
@@ -136,11 +169,9 @@ io.on('connection', function (socket) {
         line_history = []
         io.emit('clear', 0)
 
-        info = "waiting for players"
-        socket.emit('info', info)
+        info = "waiting for players..."
+        io.emit('info', info)
     }
 });
-
-
 
 http.listen(port, () => console.log('listening on port ' + port));

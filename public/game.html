@@ -65,9 +65,48 @@
       <div class="center select" id="select" style="display: none">
         <div class="center-content">
           <div class="select-box">
-            <div class="options" id="options">
-
+            <div id="select-timer" style="text-align: center">
+              <script id="select-clock-template" type="text/html">
+                <h2>{{time}}</h2>
+              </script>
             </div>
+            <div class="options" id="options">
+              <script id="option-template" type="text/html">
+                <div class="option" onclick="select('{{easy}}')">
+                  <div class="stars" name={{easy}}>
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                  </div>
+                  <h1>{{easy}}</h1>
+                </div>
+                <div class="option" onclick="select('{{medium}}')">
+                  <div class="stars" name="{{medium}}">
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                  </div>
+                  <h1>{{medium}}</h1>
+                </div>
+                <div class="option" onclick="select('{{hard}}')">
+                  <div class="stars" name="{{hard}}">
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
+                  </div>
+                  <h1>{{hard}}</h1>
+                </div>
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="center tip" id="tip" style="display: block">
+        <div class="center-content">
+          <div class="letters" id="tip-letters">
+            <script id="tip-template" type="text/html">
+              {{#letters}}
+                <div class="letter">{{.}}</div>
+              {{/letters}}
+            </script>
           </div>
         </div>
       </div>
@@ -94,30 +133,6 @@
             <p>
               {{info}}
             </p>
-      </script>
-
-      <script id="option-template" type="text/html">
-        <div class="option" onclick="select('{{easy}}')">
-          <div class="stars" name={{easy}}>
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-          </div>
-          <h1>{{easy}}</h1>
-        </div>
-        <div class="option" onclick="select('{{medium}}')">
-          <div class="stars" name="{{medium}}">
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-          </div>
-          <h1>{{medium}}</h1>
-        </div>
-        <div class="option" onclick="select('{{hard}}')">
-          <div class="stars" name="{{hard}}">
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-            <i class="fa fa-star" aria-hidden="true" style="font-size: 48px"></i>
-          </div>
-          <h1>{{hard}}</h1>
-        </div>
       </script>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
