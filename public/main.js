@@ -182,6 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }, 1000)
 
+        tipLetters.innerHTML = ''
+
         socket.emit('clearToolboxes')
     })
 
