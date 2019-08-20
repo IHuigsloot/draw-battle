@@ -1,6 +1,9 @@
 const users = []
 
-const addUser = ({ id, username }) => {
+const addUser = ({
+    id,
+    username
+}) => {
     if (!username) {
         return {
             error: 'Username is required!'
@@ -20,9 +23,14 @@ const addUser = ({ id, username }) => {
     }
 
     // Store user
-    const user = { id, username }
+    const user = {
+        id,
+        username
+    }
     users.push(user)
-    return { user }
+    return {
+        user
+    }
 }
 
 const removeUser = (id) => {

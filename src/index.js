@@ -69,7 +69,7 @@ io.on('connection', function (socket) {
 
         var user = getUser(data.id)
 
-        io.emit('alert', `${user.username} heeft het goed geraden!`)
+        io.emit('alert', `${user.username} has guessed ${drawing}!`)
         newRound()
     })
 
