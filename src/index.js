@@ -18,6 +18,7 @@ var drawer = ''
 var drawing = ''
 var tips = []
 var game = 'wait'
+
 var chooseTimer
 var drawTimer
 
@@ -40,14 +41,15 @@ io.on('connection', function (socket) {
         if (error) {
             return callback(error)
         }
+        playerslist()
 
         callback()
     })
 
-
     for (var i in line_history) {
         socket.emit('draw_line', { line: line_history[i] });
     }
+
     socket.on('draw_line', function (data) {
         if (!(data.id === drawer.id)) {
             return
@@ -68,8 +70,6 @@ io.on('connection', function (socket) {
         var user = getUser(data.id)
 
         io.emit('alert', `${user.username} heeft het goed geraden!`)
-        clearTimeout(drawTimer)
-        clearTimeout(tipTimer)
         newRound()
     })
 
@@ -93,13 +93,18 @@ io.on('connection', function (socket) {
         io.emit('info', info)
     })
 
+    socket.on('getLines', () => {
+        for (var i in line_history) {
+            io.to(socket.id).emit('draw_line', { line: line_history[i] });
+        }
+
+    })
+
     socket.on('disconnect', () => {
         removeUser(socket.id)
         var users = getUsers()
 
-        console.log(users);
-
-        console.log(users.length);
+        playerslist()
 
         if (users.length < 2) {
             return stopGame()
@@ -118,8 +123,7 @@ io.on('connection', function (socket) {
     }
 
     newRound = () => {
-        console.log("New round started");
-
+        stopTimers()
         io.emit('clear', 2000)
         line_history = []
         tips = []
@@ -137,8 +141,6 @@ io.on('connection', function (socket) {
 
         chooseTimer = setTimeout(() => {
             io.to(drawer.id).emit('kick')
-            console.log('kick');
-
         }, 16000)
 
         tipTimer = setInterval(() => {
@@ -152,7 +154,7 @@ io.on('connection', function (socket) {
             var letter = drawing.charAt(index);
 
             tips.splice(index, 1, letter)
-            console.log(index);
+
             io.emit('tip', tips)
         }, 15000);
 
@@ -171,7 +173,26 @@ io.on('connection', function (socket) {
 
         info = "waiting for players..."
         io.emit('info', info)
+
+        stopTimers()
     }
+
+    stopTimers = () => {
+        if (typeof drawTimer !== "undefined") {
+            clearTimeout(drawTimer);
+        }
+        if (typeof tipTimer !== "undefined") {
+            clearTimeout(tipTimer);
+        }
+    }
+
+    playerslist = () => {
+        var players = getUsers().map((player) => {
+            return player.username
+        })
+        io.emit('playerlist', players)
+    }
+
 });
 
 http.listen(port, () => console.log('listening on port ' + port));

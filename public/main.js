@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     window.onresize = () => {
-        setTimeout(() => location.reload(), 25)
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width
+        canvas.height = height
+        setTimeout(() => {
+            socket.emit('getLines')
+        }, 100)
+
     }
     var mouse = {
         click: false,
@@ -30,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectTimer = document.querySelector('#select-timer')
     const answerInput = document.querySelector('#answer-input')
     const tipLetters = document.querySelector('#tip-letters')
+    const playersList = document.querySelector('#players-list')
 
     // Templates
     const alertTemplate = document.querySelector('#alert-template').innerHTML
@@ -37,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const optionTemplate = document.querySelector('#option-template').innerHTML
     const selectClockTemplate = document.querySelector('#select-clock-template').innerHTML
     const tipTemplate = document.querySelector('#tip-template').innerHTML
+    const playersListTemplate = document.querySelector('#players-list-template').innerHTML
 
     var current = {
         color: 'black'
@@ -134,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.on('alert', (alert) => {
-        console.log(alert)
         sendAlert(alert)
     })
 
@@ -152,7 +160,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.on('drawer', (options) => {
-        console.log('You are the drawer')
         select.style.display = 'block';
         answer.style.display = 'none';
         toolbox.style.display = "none";
@@ -182,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toolbox.style.display = "none";
         select.style.display = 'none';
         answer.style.display = 'block';
+        tipLetters.innerHTML = ''
     })
 
     socket.on('draw', () => {
@@ -194,12 +202,15 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.on('tip', (data) => {
-        console.log(data);
-
         tipLetters.innerHTML = Mustache.render(tipTemplate, {
             "letters": data
         })
-        console.log("recieved");
+    })
+
+    socket.on('playerlist', (data) => {
+        playersList.innerHTML = Mustache.render(playersListTemplate, {
+            "players": data
+        })
     })
 
     mainLoop();

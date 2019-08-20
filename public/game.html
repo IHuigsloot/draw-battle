@@ -27,7 +27,16 @@
             <h1>Draw battle</h1>
           </div>
           <div class="players">
-            <a href="#"><i class="fa fa-users" style="font-size:36px"></i></a>
+            <div class="players-box">
+              <h3><i class="fa fa-users" style="font-size:36px"></i> Players</h3>
+              <ul id="players-list">
+                <script type="text/html" id="players-list-template">
+                  {{#players}}
+                    <li>{{.}}</li>
+                  {{/players}}
+                </script>
+              </ul>
+            </div>
           </div>
         </div>
         
@@ -123,7 +132,7 @@
       <!-- Templates -->
       <script id="alert-template" type="text/html">
         <div id="alert" class="alert">
-            <p class="alert__text">
+            <p class="alert-text">
               {{alert}}
             </p>
         </div>

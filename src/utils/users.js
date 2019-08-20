@@ -1,9 +1,6 @@
 const users = []
 
 const addUser = ({ id, username }) => {
-    console.log(users);
-
-
     if (!username) {
         return {
             error: 'Username is required!'

@@ -20,73 +20,6 @@ html, body {
   bottom: 0;
   top: 0;
 }
-.toolbox {
-  background-color: #eee;
-  width: fit-content;
-  padding: 1em;
-  border-radius: 25px;
-}
-
-.toolbox-item {
-  display: inline-block;
-}
-
-.clear {
-  pointer-events: auto;
-  display: inline-block;
-  height: 48px;
-  width: 48px;
-  background-color: white;
-}
-
-/* .colors {
-  width: 100%;
-  background-color: #eee;
-} */
-
-.color {
-  pointer-events: auto;
-  display: inline-block;
-  height: 48px;
-  width: 48px;
-}
-
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: gold; }
-
-.answer {
-  bottom: 16px;
-}
-
-.tip {
-  bottom: 72px;
-}
-
-.answer-input {
-  width: 300px;
-  padding-left: 10px;
-  font-size: 32px;
-}
-
-.alert {
-      position:absolute;
-    width: 600px;
-    height: 60px;
-    top: 40px;
-    left: 50%;
-    transform: translate(-50%,0);
-    color: white;
-    background-color: black;
-    text-align: center
-}
-
-.alert__text {
-  margin-top: 5px;
-  font-size: 32px;
-}
 
 .center {
   position: absolute;
@@ -134,15 +67,74 @@ html, body {
 }
 
 .players {
-  margin: 6px;
+  margin-right: 134px;
+  border-radius: 10px;
+  position:relative;
+}
+.players-box {
+  width: 132px;
+  padding: 10px;
+  background-color: #9effa6;
+  display: inline-block;
+  position: absolute;
+  border-radius: 25px;
+}
+.players-box ul {
+  margin-top: 6px;
+}
+
+.players-box ul li{
+  list-style: none;
+}
+
+.alert {
+    position:absolute;
+    width: 600px;
+    height: 60px;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%,0);
+    color: white;
+    background-color: black;
+    text-align: center
+}
+
+.alert-text {
+  margin-top: 5px;
+  font-size: 32px;
+}
+
+.toolbox {
+  background-color: #eee;
+  width: fit-content;
+  padding: 1em;
+  border-radius: 25px;
+}
+
+.toolbox-item {
+  display: inline-block;
+}
+
+.clear {
+  pointer-events: auto;
+  display: inline-block;
   height: 48px;
   width: 48px;
-  background-color: #9effa6;
-  border-radius: 10px;
+  background-color: white;
 }
-.players a {
-  color: black;
+
+.color {
+  pointer-events: auto;
+  display: inline-block;
+  height: 48px;
+  width: 48px;
 }
+
+.color.black { background-color: black; }
+.color.red { background-color: red; }
+.color.green { background-color: green; }
+.color.blue { background-color: blue; }
+.color.yellow { background-color: gold; }
 
 .select {
   top: 30%;
@@ -180,9 +172,23 @@ html, body {
   margin: 0 
 }
 
+.answer {
+  bottom: 16px;
+}
+
+.answer-input {
+  width: 300px;
+  padding-left: 10px;
+  font-size: 32px;
+}
+
+.tip {
+  bottom: 72px;
+}
+
 .letter {
   float: left;
-  width: 60px;
+  width: 50px;
   height: 46px;
   margin-left: 10px;
   text-align: center;
