@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const $answerInput = document.querySelector('#answer-input')
     const $tipLetters = document.querySelector('#tip-letters')
     const $playersList = document.querySelector('#players-list')
-    const $answerform = document.getElementById('answer-form');
-    const $answer = document.getElementById('answer')
+    const $answerform = document.querySelector('#answer-form');
+    const $answer = document.querySelector('#answer')
 
     // Templates
     const alertTemplate = document.querySelector('#alert-template').innerHTML

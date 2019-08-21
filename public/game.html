@@ -13,6 +13,8 @@
         var socket = io.connect();
 
         function select(option) {
+            document.querySelector('#draw').innerHTML = option
+
             socket.emit('select', {
                 select: option,
                 id: socket.id
@@ -54,6 +56,7 @@
         </div>
 
         <div class="toolbox" id="toolbox" style="display: none">
+            <p>Draw: <span id="draw"></span></p>
             <div class="color-box toolbox-item">
                 <div class="colors">
                     <div class="color black"></div>

@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
         }
 
         if (!(data.answer.toLowerCase() === drawing.toLowerCase())) {
-            return socket.emit('alert', 'fout')
+            return socket.emit('alert', 'Wrong!')
         }
 
         var user = getUser(data.id)
